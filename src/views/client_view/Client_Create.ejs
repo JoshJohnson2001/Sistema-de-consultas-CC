@@ -1,0 +1,40 @@
+<%- include('partials/_header'); -%>
+    <div class="col-md-5">
+        <div class="card-body">
+            <form action="/client/add" method="POST">
+                <div class="form-group">
+                    <input type="text" name="business_name" placeholder="Business_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="number" name="phone_number" placeholder="Phone_number" class="form-control" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="business_type" placeholder="Business_type" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="business_representative" placeholder="Business_representative"
+                        class="form-control" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="formal_address" placeholder="Formal_address" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="geological_address" placeholder="Geological_address" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="zone" placeholder="Zone" class="form-control" autofocus>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Add Client
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+<%- include('partials/_footer'); -%>

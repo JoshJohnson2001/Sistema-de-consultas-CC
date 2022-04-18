@@ -1,0 +1,26 @@
+version: '3.8'
+
+services: 
+  app:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    ports: 
+      - 3000:3000
+    volumes: 
+      - .:/app
+      - '/app/node_modules'
+    depends_on: 
+      - mysql_server
+  
+  mysql_server:
+    image: mysql
+    restart: always
+    environment: 
+      - MYSQL_DATABASE=correcaminosdb
+      - MYSQL_USER=admin
+      - MYSQL_PASSWORD=MyNewPass
+      - MYSQL_ROOT_PASSWORD=secret
+    command: --default-authentication-plugin=mysql_native_password
+    volumes:
+    - ./src/restore:/docker-entrypoint-initdb.d/

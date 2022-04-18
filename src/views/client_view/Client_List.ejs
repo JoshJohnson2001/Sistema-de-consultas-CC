@@ -1,0 +1,54 @@
+<%- include('partials/_header'); -%>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-7">
+                <div>
+                    <form action="/client/create" method="get">
+                        <button type="submit" class="btn btn-primary">
+                            Add Client
+                        </button>
+                    </form>
+                </div>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <td>Business_name </td>
+                            <td>Phone_number</td>
+                            <td>Email</td>
+                            <td>Business_type </td>
+                            <td>Business_representative</td>
+                            <td>Formal_address</td>
+                            <td>Geological_address</td>
+                            <td>Zone</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (data) { %>
+                            <% for(var i=0; i < data.length; i++) { %>
+                                <tr>
+                                    <td><%= data[i].business_name%></td>
+                                    <td><%= data[i].phone_number%></td>
+                                    <td><%= data[i].email%></td>
+                                    <td><%= data[i].business_type%></td>
+                                    <td><%= data[i].business_representative%></td>
+                                    <td><%= data[i].formal_address%></td>
+                                    <td><%= data[i].geological_address%></td>
+                                    <td><%= data[i].zone%></td>
+                                    <td>
+                                        <a href="/client/edit/<%= data[i].client_id %>">Edit</a>
+                                        <a href="/client/delete/<%= data[i].client_id %>">Delete</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <%- include('partials/_footer'); -%>
