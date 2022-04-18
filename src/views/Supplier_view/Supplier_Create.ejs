@@ -1,0 +1,30 @@
+<%- include('partials/_header'); -%>
+    <div class="col-md-5">
+        <div class="card-body">
+            <form action="/supplier/add" method="POST">
+                <div class="form-group">
+                    <input type="text" name="supplier_name" placeholder="Supplier_name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="formal_address" placeholder="Formal_address" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="number" name="phone_number" placeholder="Phone_number" class="form-control" autofocus>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="text" name="have_delivery" placeholder="Have_delivery" class="form-control">
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Add supplier
+                </button>
+
+            </form>
+
+        </div>
+    </div>
+
+<%- include('partials/_footer'); -%>

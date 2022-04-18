@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-md-7">
                 <div>
-                    <form action="/supplier/create" method="get">
+                    <form action="/supplier/<%= dataID %>/product/create" method="get">
                         <button type="submit" class="btn btn-primary">
                             Add supplier
                         </button>
@@ -13,11 +13,11 @@
                 <table class="table table-bordered table-hover table-sm">
                     <thead>
                         <tr>
-                            <td>Supplier_name </td>
-                            <td>Formal_address</td>
-                            <td>Phone_number</td>
-                            <td>Email</td>
-                            <td>Have_delivery </td>
+                            <td>Product_name </td>
+                            <td>Price</td>
+                            <td>Category_name</td>
+                            <td>Subcategory_name</td>
+                            <td>Is_available </td>
                             <td>Actions</td>
                         </tr>
                     </thead>
@@ -25,15 +25,14 @@
                         <% if (data) { %>
                             <% for(var i=0; i < data.length; i++) { %>
                                 <tr>
-                                    <td><%= data[i].supplier_name%></td>
-                                    <td><%= data[i].formal_address%></td>
-                                    <td><%= data[i].phone_number%></td>
-                                    <td><%= data[i].email%></td>
-                                    <td><%= data[i].have_delivery%></td>
+                                    <td><%= data[i].product_name%></td>
+                                    <td><%= data[i].price%></td>
+                                    <td><%= data[i].category_name%></td>
+                                    <td><%= data[i].subcategory_name%></td>
+                                    <td><%= data[i].is_available%></td>
                                     <td>
                                         <a href="/supplier/edit/<%= data[i].supplier_id %>">Edit</a>
                                         <a href="/supplier/delete/<%= data[i].supplier_id %>">Delete</a>
-                                        <a href="/supplier/<%= data[i].supplier_id %>/product">Products</a>
                                     </td>
                                 </tr>
                             <% } %>
