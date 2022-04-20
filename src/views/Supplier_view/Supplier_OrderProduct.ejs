@@ -3,13 +3,6 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-7">
-                <div>
-                    <form action="/supplier/<%= dataID %>/product/create" method="get">
-                        <button type="submit" class="btn btn-primary">
-                            Add Product
-                        </button>
-                    </form>
-                </div>
                 <table class="table table-bordered table-hover table-sm">
                     <thead>
                         <tr>
@@ -31,8 +24,7 @@
                                     <td><%= data[i].subcategory_name%></td>
                                     <td><%= data[i].is_available%></td>
                                     <td>
-                                        <a href="/supplier/edit/<%= data[i].supplier_id %>">Edit</a>
-                                        <a href="/supplier/delete/<%= data[i].supplier_id %>">Delete</a>
+                                        <a href="">Add</a>
                                     </td>
                                 </tr>
                             <% } %>

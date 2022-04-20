@@ -15,4 +15,10 @@ router.post('/supplier/:id/product/add', controller.saveProduct);
 router.get('/supplier/:id/product/edit/:id', controller.editProduct);
 router.post('/supplier/:id/product/update/:id', controller.updateProduct);
 router.get('/supplier/:id/product/delete/:id', controller.deleteProduct);
+
+router.get('/supplier/orders', controller.listOrders);
+router.get('/supplier/order', controller.listSupplier);
+router.get('/supplier/:id/product/order', controller.listSupplierProduct);
+
+
 module.exports = router;

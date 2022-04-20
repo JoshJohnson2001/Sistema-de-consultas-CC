@@ -1,0 +1,51 @@
+<%- include('partials/_header'); -%>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-7">
+                <table class="table table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <td>Product_name </td>
+                            <td>category_name</td>
+                            <td>Subcategory_name </td>
+                            <td>Price</td>
+                            <td>Is_available</td>
+                            <td>Action</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (data) { %>
+                            <% for(var i=0; i < data.length; i++) { %>
+                                <tr>
+                                    <td>
+                                        <%= data[i].product_name%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].category_name%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].subcategory_name%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].price%>
+                                    </td>
+                                    <td>
+                                        <%= data[i].is_available%>
+                                    </td>
+                                    <td> <input type="checkbox" id="check_"></td>
+                                </tr>
+                                <% } %>
+                                    <% } %>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+    <%- include('partials/_footer'); -%>

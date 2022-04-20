@@ -1,0 +1,38 @@
+<%- include('partials/_header'); -%>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-7">
+                <table class="table table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <td>Order_id </td>
+                            <td>Business_name</td>
+                            <td>Business_representative</td>
+                            <td>Client_id </td>
+                            <td>Price</td>
+                            <td>Quantity</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (data) { %>
+                            <% for(var i=0; i < data.length; i++) { %>
+                                <tr>
+                                    <td><%= data[i].order_id%></td>
+                                    <td><%= data[i].business_name%></td>
+                                    <td><%= data[i].business_representative%></td>
+                                    <td><%= data[i].client_id%></td>
+                                    <td><%= data[i].price%></td>
+                                    <td><%= data[i].quantity%></td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <%- include('partials/_footer'); -%>

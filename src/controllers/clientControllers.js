@@ -1,4 +1,5 @@
-const { redirect } = require("express/lib/response");
+const { query } = require("express");
+const { redirect, get } = require("express/lib/response");
 
 const controller = {};
 
@@ -65,5 +66,74 @@ controller.delete = (req, res) => {
     });
   });
 }
+
+
+/*
+Order Client
+*/
+
+controller.listOrder = (req, res) => {
+  req.getConnection((err, conn) => {
+    let queryS = "select o.order_id, c.business_name,c.business_representative, o.client_id, p.product_name, p.price, od.quantity "+
+    "from OrderC as o inner join OrderDetail as od on o.order_id = od.order_id "+
+    "inner join Client as c on c.client_id = o.client_id inner join Product as p on p.product_id = od.product_id"
+    conn.query(queryS, (err, listaA) => {
+      if (err) {
+        res.json(err);
+      }
+      else {
+        res.render('client_view/Client_List_Order', {
+          data: listaA
+        });
+      }
+    });
+  });
+};
+
+
+controller.listClient = (req, res) => {
+  
+  req.getConnection((err, conn) => {
+    conn.query('SELECT * FROM Client', (err, listaA) => {
+      if (err) {
+        res.json(err);
+      }
+      else {
+        res.render('client_view/Client_OrderList', {
+          data: listaA
+        });
+      }
+    });
+  });
+};
+
+controller.listProduct = (req, res) => {
+  const { id } = req.params;
+  req.getConnection((err, conn) => {
+    conn.query('SELECT * FROM Product', (err, listaA) => {
+      if (err) {
+        res.json(err);
+      }
+      else {
+        
+        res.render('client_view/Client_Order', {
+          data: listaA
+        });
+      }
+    });
+  });
+};
+
+
+
+
+
+
+
+
+
+
+
+
 
 module.exports = controller;
