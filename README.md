@@ -17,6 +17,6 @@ La Distribuidora Corre Caminos S.A., mejor conocidad como CC; es una famosa dist
 -  client/order/:id: (post) Realiza el pedido realizo por el cliente 
 -  driver/deliveries/:id : Muestra las ordenes pendientes de los repartidores
 -  driver/update/deliveries/:id : Luego de que el repartidor obtenga la direccion  realiza la entraga
--  
+- 
 
-# Disculpe de me olvido la documentacion para la explicacion del proyecto
+# Disculpe se me olvido la documentacion para la explicacion del proyecto
