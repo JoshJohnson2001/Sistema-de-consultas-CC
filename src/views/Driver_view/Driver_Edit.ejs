@@ -1,0 +1,32 @@
+<%- include('partials/_header'); -%>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-5 offset-md-3 card">
+                <div class="card-body">
+                    <form action="/driver/update/<%= data.driver_id%>" method="post">
+
+                        <div class="form-group">
+                            <input type="text" name="driver_name" value="<%= data.driver_name%>" class="form-control"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" name="driver_type" value="<%= data.driver_type%>" class="form-control"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name="salary" value="<%= data.salary%>" class="form-control"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <input type="date" name="hiring_date" value="<%= data.hiring_date%>" class="form-control"
+                                required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Edit driver
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%- include('partials/_footer'); -%>

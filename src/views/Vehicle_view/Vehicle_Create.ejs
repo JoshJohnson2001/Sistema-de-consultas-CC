@@ -1,0 +1,28 @@
+<%- include('partials/_header'); -%>
+    <div class="col-md-5">
+        <div class="card-body">
+            <form action="/vehicle/add" method="POST">
+                <div class="form-group">
+                    <input type="text" name="car_brand" placeholder="Car_brand" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" name="car_plaque" placeholder="Car_plaque" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="text" name="type_of_gas" placeholder="Type_of_gas" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="date" name="purchase_date" placeholder="Purchase_date" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <input type="number" name="tank_capacity" placeholder="Tank_capacity" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">
+                    Add vehicle
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+<%- include('partials/_footer'); -%>

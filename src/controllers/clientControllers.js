@@ -110,6 +110,10 @@ controller.listClient = (req, res) => {
 controller.listProduct = (req, res) => {
   const { id } = req.params;
   req.getConnection((err, conn) => {
+    let query1 = "INSERT INTO OrderC ( client_id, status, fecha) VALUES ( ?,'NULL', current_date ())";
+
+    const query = conn.query(query1, [id])
+
     conn.query('SELECT * FROM Product', (err, listaA) => {
       if (err) {
         res.json(err);
@@ -117,7 +121,8 @@ controller.listProduct = (req, res) => {
       else {
         
         res.render('client_view/Client_Order', {
-          data: listaA
+          data: listaA,
+          data_ID : id
         });
       }
     });
@@ -126,7 +131,37 @@ controller.listProduct = (req, res) => {
 
 
 
+controller.addProduct = (req, res) => {
+  /*
+  const { id } = req.params;
+  const data = req.body;
+  req.getConnection((err, connection) => {
+    conn.query('select quantity from BusinessStock as b where b.product_id = ?',data.product_id, (err, listaA) => {
+      if (listaA.quantity>=data.quantity) {
+        let sql = "select max(order_id) into @order_id from OrderC"
+        let sql1 ="INSERT INTO OrderDetail (order_id, product_id, quantity) VALUES (?,?,?)"
+		    let sql2 ="update BusinessStock set quantity = ? where product_id = ?"
+        let sql3 ="update OrderC set status = 'En despacho' where order_id = ?"
+        conn.query(sql,data.product_id, (err, order_id)=> {
 
+        })
+      }
+      else {
+        
+      }
+    });
+  })
+
+
+  
+  req.getConnection((err, connection) => {
+    let sql = 'CALL c_orderClient(?,?,?)'
+    let product_id = parseInt(data.product_id)
+    let quantity = parseInt(data.quantity)
+    let id_client = parseInt(data.id)
+    const query = connection.query(sql, data.product_id ,data.quantity ,id)
+  })*/
+}
 
 
 

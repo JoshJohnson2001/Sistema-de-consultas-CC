@@ -1,0 +1,50 @@
+<%- include('partials/_header'); -%>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-7">
+                <div>
+                    <form action="/vehicle/create" method="get">
+                        <button type="submit" class="btn btn-primary">
+                            Add Vehicle
+                        </button>
+                    </form>
+                </div>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <td>Vehicle_id  </td>
+                            <td>Car_brand</td>
+                            <td>Car_plaque </td>
+                            <td>Type_of_gas  </td>
+                            <td>Purchase_date </td>
+                            <td>Tank_capacity  </td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (data) { %>
+                            <% for(var i=0; i < data.length; i++) { %>
+                                <tr>
+                                    <td><%= data[i].vehicle_id%></td>
+                                    <td><%= data[i].car_brand%></td>
+                                    <td><%= data[i].car_plaque%></td>
+                                    <td><%= data[i].type_of_gas%></td>
+                                    <td><%= data[i].purchase_date%></td>
+                                    <td><%= data[i].tank_capacity%></td>
+                                    <td>
+                                        <a href="/vehicle/edit/<%= data[i].vehicle_id %>">Edit</a>
+                                        <a href="/vehicle/delete/<%= data[i].vehicle_id %>">Delete</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <%- include('partials/_footer'); -%>

@@ -6,18 +6,21 @@
                 <table class="table table-bordered table-hover table-sm">
                     <thead>
                         <tr>
+                            <td>Product_id </td>
                             <td>Product_name </td>
                             <td>category_name</td>
                             <td>Subcategory_name </td>
                             <td>Price</td>
                             <td>Is_available</td>
-                            <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
                         <% if (data) { %>
                             <% for(var i=0; i < data.length; i++) { %>
                                 <tr>
+                                    <td>
+                                        <%= data[i].product_id%>
+                                    </td>
                                     <td>
                                         <%= data[i].product_name%>
                                     </td>
@@ -33,19 +36,28 @@
                                     <td>
                                         <%= data[i].is_available%>
                                     </td>
-                                    <td> <input type="checkbox" id="check_"></td>
                                 </tr>
-                                <% } %>
-                                    <% } %>
-
+                            <% } %>
+                        <% } %>
                     </tbody>
                 </table>
+            </div>
+            <div class="col-md-5 offset-md-3 card">
+                <div class="card-body">
+                    <form action="/client/order/<%= data_ID %>" method="post">
+                        <div class="form-group">
+                            <input type="number" name="product_id" placeholder="Product_id" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="number" name="quantity" placeholder="Quantity" class="form-control" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            Add product to order
+                        </button>
+                    </form>
+                </div>
             </div>
         </div>
 
     </div>
-
-
-
-
-    <%- include('partials/_footer'); -%>
+<%- include('partials/_footer'); -%>

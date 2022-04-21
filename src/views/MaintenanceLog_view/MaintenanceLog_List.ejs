@@ -1,0 +1,46 @@
+<%- include('partials/_header'); -%>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-7">
+                <div>
+                    <form action="/mantening/create" method="get">
+                        <button type="submit" class="btn btn-primary">
+                            Add MaintenanceLog
+                        </button>
+                    </form>
+                </div>
+                <table class="table table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <td>Maintenance_id  </td>
+                            <td>Vehicle_id</td>
+                            <td>Maintenance_type </td>
+                            <td>Maintenenace_day  </td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (data) { %>
+                            <% for(var i=0; i < data.length; i++) { %>
+                                <tr>
+                                    <td><%= data[i].maintenance_id%></td>
+                                    <td><%= data[i].vehicle_id%></td>
+                                    <td><%= data[i].maintenance_type%></td>
+                                    <td><%= data[i].maintenenace_day%></td>
+                                    <td>
+                                        <a href="/mantening/edit/<%= data[i].maintenance_id %>">Edit</a>
+                                        <a href="/mantening/delete/<%= data[i].maintenance_id %>">Delete</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <%- include('partials/_footer'); -%>

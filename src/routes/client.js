@@ -13,6 +13,6 @@ router.get('/client/orders', clientController.listOrder);
 
 router.get('/client/order', clientController.listClient);
 router.get('/client/order/:id', clientController.listProduct);
-
+router.post('/client/order/:id', clientController.addProduct);
 module.exports = router;
 

@@ -17,7 +17,7 @@ services:
     image: mysql
     restart: always
     environment: 
-      - MYSQL_DATABASE=correcaminosdb
+      - MYSQL_DATABASE=systemCC
       - MYSQL_USER=admin
       - MYSQL_PASSWORD=MyNewPass
       - MYSQL_ROOT_PASSWORD=secret

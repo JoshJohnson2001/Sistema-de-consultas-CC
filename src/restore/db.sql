@@ -4,15 +4,16 @@
 -- Name of the database: correcaminosdb
 -- ===============================================
 
+-- --------------------------------------------------------
 --
--- Base de datos: `correcaminosdb`
+-- Base de datos: `systemCC`
 --
-DROP DATABASE IF EXISTS `correcaminosdb`;
-CREATE DATABASE IF NOT EXISTS `correcaminosdb` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `correcaminosdb`;
+
+DROP DATABASE IF EXISTS `systemCC`;
+CREATE DATABASE IF NOT EXISTS `systemCC` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `systemCC`;
 
 -- --------------------------------------------------------
-
 --
 -- Estructura de tabla para la tabla `BusinessStock`
 --
@@ -37,8 +38,9 @@ CREATE TABLE `Client` (
   `email` varchar(60) NOT NULL,
   `zone` varchar(100) NOT NULL,
   `formal_address` varchar(100) NOT NULL,
-  `geological_address` point NOT NULL
+  `geological_address` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- --------------------------------------------------------
 
@@ -77,8 +79,11 @@ CREATE TABLE `MaintenanceLog` (
 CREATE TABLE `OrderC` (
   `order_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
-  `status` varchar(50) NOT NULL
+  `status` varchar(50) NOT NULL,
+  `fecha` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 
 -- --------------------------------------------------------
 
@@ -91,6 +96,8 @@ CREATE TABLE `OrderDetail` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 
 -- --------------------------------------------------------
 
@@ -107,6 +114,11 @@ CREATE TABLE `Product` (
   `is_available` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Volcado de datos para la tabla `Product`
+--
+
+
 -- --------------------------------------------------------
 
 --
@@ -115,12 +127,13 @@ CREATE TABLE `Product` (
 
 CREATE TABLE `Supplier` (
   `supplier_id` int(11) NOT NULL,
-  `supplier_name` int(60) NOT NULL,
+  `supplier_name` varchar(60) NOT NULL,
   `formal_address` varchar(100) NOT NULL,
   `phone_number` int(11) NOT NULL,
   `email` varchar(60) NOT NULL,
   `have_delivery` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- --------------------------------------------------------
 
@@ -133,6 +146,8 @@ CREATE TABLE `SupplierOrder` (
   `supplier_id` int(11) NOT NULL,
   `order_date` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 
 -- --------------------------------------------------------
 
@@ -157,6 +172,7 @@ CREATE TABLE `SupplierStock` (
   `supplier_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 
 -- --------------------------------------------------------
 
@@ -221,7 +237,8 @@ ALTER TABLE `OrderDetail`
 -- Indices de la tabla `Product`
 --
 ALTER TABLE `Product`
-  ADD PRIMARY KEY (`product_id`);
+  ADD PRIMARY KEY (`product_id`),
+  ADD UNIQUE KEY `product_name` (`product_name`);
 
 --
 -- Indices de la tabla `Supplier`
@@ -265,7 +282,7 @@ ALTER TABLE `Vehicle`
 -- AUTO_INCREMENT de la tabla `Client`
 --
 ALTER TABLE `Client`
-  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `MaintenanceLog`
@@ -277,31 +294,31 @@ ALTER TABLE `MaintenanceLog`
 -- AUTO_INCREMENT de la tabla `OrderC`
 --
 ALTER TABLE `OrderC`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `Product`
 --
 ALTER TABLE `Product`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `Supplier`
 --
 ALTER TABLE `Supplier`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT de la tabla `SupplierOrder`
 --
 ALTER TABLE `SupplierOrder`
-  MODIFY `supplier_order_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `supplier_order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `SupplierStock`
 --
 ALTER TABLE `SupplierStock`
-  MODIFY `supplier_stock_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `supplier_stock_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT de la tabla `Vehicle`
@@ -364,3 +381,106 @@ ALTER TABLE `SupplierStock`
   ADD CONSTRAINT `SupplierStock_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `Supplier` (`supplier_id`),
   ADD CONSTRAINT `SupplierStock_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `Product` (`product_id`);
 COMMIT;
+
+
+--
+-- Volcado de datos para la tabla `Client`
+--
+
+INSERT INTO `Client` (`client_id`, `business_name`, `business_type`, `business_representative`, `phone_number`, `email`, `zone`, `formal_address`, `geological_address`) VALUES
+(1, 'La_Shusma', 'MInisuper', 'Shumchi', 86510458, 'lShu@gmail.com', 'Limon', 'Barrio San Juan calle de piedra primera casa', '65, 65'),
+(2, 'Carpin', 'Super', 'Sofia', 27584125, 'carpin@hotmail.com', 'San Jose', 'Tibas por el agueducto quinta casa color verde', '645, -6225');
+
+
+INSERT INTO `Product` (`product_id`, `product_name`, `price`, `category_name`, `subcategory_name`, `is_available`) VALUES
+(1, 'pasta de dientes', 1100, 'limpieza', 'liempeza Personal', 'True'),
+(7, 'jabon de baño', 535, 'limpieza', 'baño', 'True'),
+(8, 'pan ', 1000, 'comida', 'trigo', 'True');
+
+--
+-- Volcado de datos para la tabla `OrderC`
+--
+
+INSERT INTO `OrderC` (`order_id`, `client_id`, `status`, `fecha`) VALUES
+(1, 1, 'Completo', current_date()),
+(2, 2, 'Pendiente', current_date()),
+(3, 1, 'En despacho', current_date());
+
+--
+-- Volcado de datos para la tabla `OrderDetail`
+--
+
+INSERT INTO `OrderDetail` (`order_id`, `product_id`, `quantity`) VALUES
+(1, 7, 4),
+(1, 8, 2),
+(3, 1, 10),
+(3, 7, 11),
+(2, 8, 10);
+
+
+--
+-- Volcado de datos para la tabla `Supplier`
+--
+
+INSERT INTO `Supplier` (`supplier_id`, `supplier_name`, `formal_address`, `phone_number`, `email`, `have_delivery`) VALUES
+(7, 'Jian', 'Barrio San Juan tercera cuadra casa verde', 20133605, 'jian@gmail.com', 'False'),
+(8, 'Juan Perez Perez', 'Barrio Santa Eduvigez primera parada casa azul', 832568945, 'pJuan@gmail.com', 'True'),
+(9, 'Bryan Lopez', 'Barrio Pacuare frente al taller merlin', 74561325, 'lBryan@gmail.com', 'True');
+
+
+--
+-- Volcado de datos para la tabla `SupplierOrder`
+--
+
+INSERT INTO `SupplierOrder` (`supplier_order_id`, `supplier_id`, `order_date`) VALUES
+(1, 8, '2022-04-20');
+--
+-- Volcado de datos para la tabla `SupplierOrderDetail`
+--
+
+INSERT INTO `SupplierOrderDetail` (`supplier_order_id`, `product_id`, `quantity`) VALUES
+(1, 1, 4);
+--
+-- Volcado de datos para la tabla `SupplierStock`
+--
+
+INSERT INTO `SupplierStock` (`supplier_stock_id`, `supplier_id`, `product_id`) VALUES
+(1, 8, 8),
+(2, 7, 1),
+(3, 9, 8),
+(41, 9, 7);
+
+INSERT INTO `BusinessStock` ( `product_id`, `quantity`) VALUES
+(8, 8),
+(7, 1),
+(1, 7);
+-- ------------------------------------------------------
+-- 
+-- Procedure
+--
+
+DELIMITER $$
+USE `systemCC`$$
+CREATE PROCEDURE `c_orderClient`(IN id_product int, IN quantity_p int, IN client_id int)
+BEGIN
+    declare b_quianrity int;
+	select quantity into @quantity from BusinessStock as b where b.product_id = id_product;
+    IF @quantity>=quantity_p then
+		select max(order_id) into @order_id from OrderC; 
+		INSERT INTO OrderDetail (order_id, product_id, quantity) VALUES (@order_id,id_product,quantity_p);
+		update BusinessStock set quantity = @quantity-quantity_p where product_id = id_product;
+        update OrderC set status = 'En despacho' where order_id = @order_id;
+	else
+		select max(order_id) into @order_id from OrderC; 
+		INSERT INTO OrderDetail (order_id, product_id, quantity) VALUES (@order_id,id_product,quantity_p);
+		update BusinessStock set quantity = @quantity-quantity_p where product_id = id_product;
+        update OrderC set status = 'Pendiente' where order_id = @order_id;
+    end if;
+END$$
+
+DELIMITER ;
+
+
+--INSERT INTO OrderC ( client_id, status, fecha) VALUES ( 1,'NULL', current_date ());
+
+--CALL `c_orderClient`(8,8,2);
