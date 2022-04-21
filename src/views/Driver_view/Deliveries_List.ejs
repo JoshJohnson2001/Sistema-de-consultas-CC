@@ -1,0 +1,44 @@
+<%- include('partials/_header'); -%>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-7">
+                <table class="table table-bordered table-hover table-sm">
+                    <thead>
+                        <tr>
+                            <td>Driver_name  </td>
+                            <td>Driver_type</td>
+                            <td>Zona </td>
+                            <td>Business_name </td>
+                            <td>Business_type</td>
+                            <td>Formal_address</td>
+                            <td>Status</td>
+                            <td>Actions</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (data) { %>
+                            <% for(var i=0; i < data.length; i++) { %>
+                                <tr>
+                                    <td><%= data[i].driver_name%></td>
+                                    <td><%= data[i].driver_type%></td>
+                                    <td><%= data[i].zona%></td>
+                                    <td><%= data[i].business_name%></td>
+                                    <td><%= data[i].business_type%></td>
+                                    <td><%= data[i].formal_address%></td>
+                                    <td><%= data[i].status%></td>
+                                    <td>
+                                        <a href="/driver/update/deliveries/<%= data[i].order_id %>">Deliver</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+
+
+    <%- include('partials/_footer'); -%>

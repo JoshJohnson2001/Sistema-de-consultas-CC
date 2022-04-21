@@ -64,5 +64,33 @@ controller.delete = (req, res) => {
     });
   });
 }
+//Entregas
+controller.deliveries = (req, res) => {
+  const { id } = req.params;
+  req.getConnection((err, conn) => {
+    let sql = "SELECT d.driver_name, d.driver_type,d.zona,c.business_name,c.business_type, "+
+    "c.formal_address, o.order_id , o.status FROM Driver as d INNER JOIN Client as c on c.zone = d.zona "+
+    "INNER JOIN OrderC as o on o.client_id = c.client_id WHERE o.status ='En despacho' AND driver_id = ?"
+    conn.query(sql,[id], (err, listaA) => {
+      if (err) {
+        res.json(err);
+      }
+      else {
+        res.render('Driver_view/Deliveries_List', {
+          data: listaA
+        });
+      }
+    });
+  });
+};
 
+controller.deliveriesUpdate = (req, res) => {
+  const { id } = req.params;
+  req.getConnection((err, conn) => {
+    let sql ="UPDATE OrderC set status = 'Completado' where order_id = ?"
+    conn.query(sql, [id], (err, rows) => {
+      res.redirect('/driver');
+    });
+  });
+};
 module.exports = controller;
