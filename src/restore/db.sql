@@ -4,16 +4,32 @@
 -- Name of the database: correcaminosdb
 -- ===============================================
 
--- --------------------------------------------------------
+
 --
 -- Base de datos: `systemCC`
 --
-
-DROP DATABASE IF EXISTS `systemCC`;
 CREATE DATABASE IF NOT EXISTS `systemCC` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE `systemCC`;
 
+
+
 -- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Product`
+--
+
+CREATE TABLE `Product` (
+  `product_id` int(11) NOT NULL,
+  `product_name` varchar(50) NOT NULL,
+  `price` float NOT NULL,
+  `category_name` varchar(50) NOT NULL,
+  `subcategory_name` varchar(50) NOT NULL,
+  `is_available` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
 --
 -- Estructura de tabla para la tabla `BusinessStock`
 --
@@ -22,6 +38,23 @@ CREATE TABLE `BusinessStock` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `Vehicle`
+--
+
+CREATE TABLE `Vehicle` (
+  `vehicle_id` int(11) NOT NULL,
+  `car_brand` varchar(50) NOT NULL,
+  `car_plaque` int(11) NOT NULL,
+  `type_of_gas` varchar(50) NOT NULL,
+  `purchase_date` date NOT NULL,
+  `tank_capacity` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 
 -- --------------------------------------------------------
 
@@ -52,11 +85,11 @@ CREATE TABLE `Driver` (
   `driver_id` int(11) NOT NULL,
   `vehicle_id` int(11) NOT NULL,
   `driver_name` varchar(50) NOT NULL,
-  `driver_doc_id` int(11) NOT NULL,
+  `driver_type` varchar(25) NOT NULL,
   `salary` int(11) NOT NULL,
-  `hiring_date` date NOT NULL
+  `hiring_date` date NOT NULL,
+  `zona` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
 -- --------------------------------------------------------
 
 --
@@ -80,10 +113,8 @@ CREATE TABLE `OrderC` (
   `order_id` int(11) NOT NULL,
   `client_id` int(11) NOT NULL,
   `status` varchar(50) NOT NULL,
-  `fecha` date NOT NULL
+  `fecha` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
 
 -- --------------------------------------------------------
 
@@ -96,27 +127,6 @@ CREATE TABLE `OrderDetail` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
-
-
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Product`
---
-
-CREATE TABLE `Product` (
-  `product_id` int(11) NOT NULL,
-  `product_name` varchar(50) NOT NULL,
-  `price` float NOT NULL,
-  `category_name` varchar(50) NOT NULL,
-  `subcategory_name` varchar(50) NOT NULL,
-  `is_available` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Volcado de datos para la tabla `Product`
---
 
 
 -- --------------------------------------------------------
@@ -148,7 +158,6 @@ CREATE TABLE `SupplierOrder` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
-
 -- --------------------------------------------------------
 
 --
@@ -160,6 +169,8 @@ CREATE TABLE `SupplierOrderDetail` (
   `product_id` int(11) NOT NULL,
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
 
 -- --------------------------------------------------------
 
@@ -174,20 +185,6 @@ CREATE TABLE `SupplierStock` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
--- --------------------------------------------------------
-
---
--- Estructura de tabla para la tabla `Vehicle`
---
-
-CREATE TABLE `Vehicle` (
-  `vehicle_id` int(11) NOT NULL,
-  `car_brand` varchar(50) NOT NULL,
-  `car_plaque` int(11) NOT NULL,
-  `type_of_gas` varchar(50) NOT NULL,
-  `purchase_date` date NOT NULL,
-  `tank_capacity` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Índices para tablas volcadas
@@ -285,16 +282,22 @@ ALTER TABLE `Client`
   MODIFY `client_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT de la tabla `Driver`
+--
+ALTER TABLE `Driver`
+  MODIFY `driver_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `MaintenanceLog`
 --
 ALTER TABLE `MaintenanceLog`
-  MODIFY `maintenance_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `maintenance_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT de la tabla `OrderC`
 --
 ALTER TABLE `OrderC`
-  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `order_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `Product`
@@ -324,7 +327,7 @@ ALTER TABLE `SupplierStock`
 -- AUTO_INCREMENT de la tabla `Vehicle`
 --
 ALTER TABLE `Vehicle`
-  MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `vehicle_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Restricciones para tablas volcadas
@@ -380,8 +383,7 @@ ALTER TABLE `SupplierOrderDetail`
 ALTER TABLE `SupplierStock`
   ADD CONSTRAINT `SupplierStock_ibfk_1` FOREIGN KEY (`supplier_id`) REFERENCES `Supplier` (`supplier_id`),
   ADD CONSTRAINT `SupplierStock_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `Product` (`product_id`);
-COMMIT;
-
+  
 
 --
 -- Volcado de datos para la tabla `Client`
@@ -389,22 +391,31 @@ COMMIT;
 
 INSERT INTO `Client` (`client_id`, `business_name`, `business_type`, `business_representative`, `phone_number`, `email`, `zone`, `formal_address`, `geological_address`) VALUES
 (1, 'La_Shusma', 'MInisuper', 'Shumchi', 86510458, 'lShu@gmail.com', 'Limon', 'Barrio San Juan calle de piedra primera casa', '65, 65'),
-(2, 'Carpin', 'Super', 'Sofia', 27584125, 'carpin@hotmail.com', 'San Jose', 'Tibas por el agueducto quinta casa color verde', '645, -6225');
+(2, 'Carpin', 'Super', 'Sofia', 27584125, 'carpin@hotmail.com', 'San Jose', 'Tibas por el agueducto quinta casa color verde', '645, -6225'),
+(3, 'pulpería_Don Juan', 'pulpería', 'Don Juan', 65893214, 'dJuan@gmail.com', 'Heredia', 'Frente al taller Pancho', '-985,351'),
+(4, 'supermercado_LasFlores', 'supermercado', 'Maria Flores', 22548963, 'folres@hotmal.com', 'Guanacaste', 'Contiguo al colegio de 27 de abril casa cafe', '45,-612'),
+(5, 'PedroProducts', 'supermercado', 'Pedro Johnson', 89653254, 'pedroProducts@hotmal.com', 'Alajuela', 'Del talle merlin las cañas calle de piedra ultima casa', '81,612');
+
+--
+-- Volcado de datos para la tabla `Driver`
+--
+
+INSERT INTO `Driver` (`driver_id`, `vehicle_id`, `driver_name`, `driver_type`, `salary`, `hiring_date`, `zona`) VALUES
+(2, 3, 'Pablo', 'Repartidor', 150000, '2021-10-07', 'Limon');
 
 
-INSERT INTO `Product` (`product_id`, `product_name`, `price`, `category_name`, `subcategory_name`, `is_available`) VALUES
-(1, 'pasta de dientes', 1100, 'limpieza', 'liempeza Personal', 'True'),
-(7, 'jabon de baño', 535, 'limpieza', 'baño', 'True'),
-(8, 'pan ', 1000, 'comida', 'trigo', 'True');
 
 --
 -- Volcado de datos para la tabla `OrderC`
 --
 
 INSERT INTO `OrderC` (`order_id`, `client_id`, `status`, `fecha`) VALUES
-(1, 1, 'Completo', current_date()),
-(2, 2, 'Pendiente', current_date()),
-(3, 1, 'En despacho', current_date());
+(1, 1, 'Completo', NULL),
+(2, 2, 'Pendiente', NULL),
+(3, 1, 'Completado', NULL),
+(6, 1, 'NULL', '2022-04-20');
+
+-- --------------------------------------------------------
 
 --
 -- Volcado de datos para la tabla `OrderDetail`
@@ -419,6 +430,16 @@ INSERT INTO `OrderDetail` (`order_id`, `product_id`, `quantity`) VALUES
 
 
 --
+-- Volcado de datos para la tabla `Product`
+--
+
+INSERT INTO `Product` (`product_id`, `product_name`, `price`, `category_name`, `subcategory_name`, `is_available`) VALUES
+(1, 'pasta de dientes', 1100, 'limpieza', 'liempeza Personal', 'True'),
+(7, 'jabon de baño', 535, 'limpieza', 'baño', 'True'),
+(8, 'pan ', 1000, 'comida', 'trigo', 'True');
+
+
+--
 -- Volcado de datos para la tabla `Supplier`
 --
 
@@ -427,19 +448,13 @@ INSERT INTO `Supplier` (`supplier_id`, `supplier_name`, `formal_address`, `phone
 (8, 'Juan Perez Perez', 'Barrio Santa Eduvigez primera parada casa azul', 832568945, 'pJuan@gmail.com', 'True'),
 (9, 'Bryan Lopez', 'Barrio Pacuare frente al taller merlin', 74561325, 'lBryan@gmail.com', 'True');
 
-
 --
 -- Volcado de datos para la tabla `SupplierOrder`
 --
 
 INSERT INTO `SupplierOrder` (`supplier_order_id`, `supplier_id`, `order_date`) VALUES
 (1, 8, '2022-04-20');
---
--- Volcado de datos para la tabla `SupplierOrderDetail`
---
 
-INSERT INTO `SupplierOrderDetail` (`supplier_order_id`, `product_id`, `quantity`) VALUES
-(1, 1, 4);
 --
 -- Volcado de datos para la tabla `SupplierStock`
 --
@@ -448,12 +463,25 @@ INSERT INTO `SupplierStock` (`supplier_stock_id`, `supplier_id`, `product_id`) V
 (1, 8, 8),
 (2, 7, 1),
 (3, 9, 8),
-(41, 9, 7);
+(4, 9, 7);
 
-INSERT INTO `BusinessStock` ( `product_id`, `quantity`) VALUES
-(8, 8),
-(7, 1),
-(1, 7);
+
+--
+-- Volcado de datos para la tabla `SupplierOrderDetail`
+--
+
+INSERT INTO `SupplierOrderDetail` (`supplier_order_id`, `product_id`, `quantity`) VALUES
+(1, 1, 4);
+--
+-- Volcado de datos para la tabla `Vehicle`
+--
+
+INSERT INTO `Vehicle` (`vehicle_id`, `car_brand`, `car_plaque`, `type_of_gas`, `purchase_date`, `tank_capacity`) VALUES
+(1, 'Nissan', 98747, 'disel', '2011-05-04', 35),
+(2, 'porch', 9911, 'super', '1999-11-01', 55),
+(3, 'Toyota', 452654, 'super', '2022-04-20', 40);  
+  
+
 -- ------------------------------------------------------
 -- 
 -- Procedure
@@ -481,6 +509,8 @@ END$$
 DELIMITER ;
 
 
---INSERT INTO OrderC ( client_id, status, fecha) VALUES ( 1,'NULL', current_date ());
+-- INSERT INTO OrderC ( client_id, status, fecha) VALUES ( 1,'NULL', current_date ());
 
---CALL `c_orderClient`(8,8,2);
+-- CALL `c_orderClient`(8,8,2);  
+  
+COMMIT;
